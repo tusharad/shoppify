@@ -44,7 +44,7 @@
           <div class="row g-3">
             <div class="col-sm-6">
               <label for="firstName" class="form-label">Name</label>
-              <input type="text" class="form-control" id="firstName" placeholder="" value="{{Session::get('user')['user_name']}}" required>
+              <input type="text" class="form-control" id="firstName" placeholder="" value="{{Auth::user()['user_name']}}" required>
               <div class="invalid-feedback">
                 Valid first name is required.
               </div>
@@ -52,7 +52,7 @@
 
             <div class="col-12">
               <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" value="{{Session::get('user')['email']}}" id="email" placeholder="you@example.com">
+              <input type="email" class="form-control" value="{{Auth::user()['email']}}" id="email" placeholder="you@example.com">
               <div class="invalid-feedback">
                 Please enter a valid email address for shipping updates.
               </div>
@@ -60,7 +60,7 @@
 
             <div class="col-12">
               <label for="address" class="form-label">Address</label>
-              <input type="text" class="form-control" name="address" id="address" value="{{Session::get('user')['address']}}" required>
+              <input type="text" class="form-control" name="address" id="address" value="{{Auth::user()['address']}}" required>
               <div class="invalid-feedback">
                 Please enter your shipping address.
               </div>
@@ -69,7 +69,7 @@
 
             <div class="col-12">
               <label for="address2" class="form-label">Phone </label>
-              <input type="text" name="phone" value="{{Session::get('user')['phone']}}" class="form-control">
+              <input type="text" name="phone" value="{{Auth::user()['phone']}}" class="form-control">
             </div>
 
           <hr class="my-4">

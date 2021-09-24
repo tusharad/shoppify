@@ -4,8 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use App\Models\User;
-
+use Illuminate\Support\Facades\Auth;
 use function PHPUnit\Framework\returnSelf;
 
 class isAdmin
@@ -19,7 +18,7 @@ class isAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if($request->session()->get('user')['isAdmin'])
+        if(Auth::user()['isAdmin'])
             return $next($request);
         else
             return redirect('/')->with('status','You are not admin!');

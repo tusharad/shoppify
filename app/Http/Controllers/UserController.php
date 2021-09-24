@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -25,7 +26,7 @@ class UserController extends Controller
             return redirect('/login')->with('status', 'wrong password!!');
         }
         else{
-            $req->session()->put('user',$user);
+            Auth::login($user);
             return redirect('/');
         }
     }

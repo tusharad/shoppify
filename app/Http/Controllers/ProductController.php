@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use App\Models\Comment;
 use App\Models\User;
-
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -63,9 +63,9 @@ class ProductController extends Controller
     }
     function addToCart(Request $req)
     {
-        if ($req->session()->has('user')) {
+        if (Auth::check()) {
                 $cart = new Cart;
-                $cart->user_id = $req->session()->get('user')['id'];
+                $cart->user_id = Auth::user()['id'];
                 $cart->product_id = $req->product_id;
                 $cart->product_quantity = $req->product_quantity;
                 $cart->save();
@@ -76,7 +76,7 @@ class ProductController extends Controller
 
     function cartList()
     {
-        $userId = Session::get('user')['id'];
+        $userId = Auth::user()['id'];
         $products = DB::table('cart')->join('products', 'cart.product_id', '=', 'products.id')
             ->where('cart.user_id', $userId)->select('products.*', 'cart.id as cart_id', 'cart.product_quantity as product_quantity')->get();
         return view('cartlist', ['products' => $products]);
@@ -91,7 +91,7 @@ class ProductController extends Controller
 
     function orderNow()
     {
-        $userId = Session::get('user')['id'];
+        $userId = Auth::user()['id'];
         $total = $products = DB::table('cart')->join('products', 'cart.product_id', '=', 'products.id')
             ->where('cart.user_id', $userId)->get();
          return view('ordernow', [
@@ -102,7 +102,7 @@ class ProductController extends Controller
 
     function orderPlace(Request $req)
     {
-        $userId = Session::get('user')['id'];
+        $userId = Auth::user()['id'];
         $allCart = Cart::where('user_id', $userId)->get();
         foreach ($allCart as $cart) {
             $order = new Order;
@@ -157,7 +157,7 @@ class ProductController extends Controller
 
     function myOrders()
     {
-        $userId = Session::get('user')['id'];
+        $userId = Auth::user()['id'];
 
         $orders =  DB::table('orders')->join('products', 'orders.product_id', '=', 'products.id')
             ->where('orders.user_id', $userId)->get();
@@ -168,7 +168,7 @@ class ProductController extends Controller
 
     static function cartItem()
     {
-        $userId = Session::get('user')['id'];
+        $userId = Auth::user()['id'];
         return Cart::where('user_id', $userId)->count();
     }
 }
