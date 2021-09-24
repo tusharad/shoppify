@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
+    public function User()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    public function comments(){
+        return $this->hasMany('App\Models\Comment');
+    }
 }

@@ -43,13 +43,12 @@ class ProductController extends Controller
         $data = Product::find($id);
         $comments = Comment::where('product_id',$id)->get();
         $details = array($data,$comments);
-      //  return $details;
         return view('detail', ['product' => $details]);
     }
 
     function postComment(Request $req){
         $comment = new Comment;
-        $comment->user_id = $req->session()->get('user')['id'];
+        $comment->user_id = Auth::user()['id'];
         $comment->product_id = $req->product_id;
         $comment->content = $req->comment;
         $comment->save();

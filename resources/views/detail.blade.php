@@ -280,7 +280,7 @@
                                 <div class="card p-3">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="user d-flex flex-row align-items-center">
-                                            <span><small class="font-weight-bold text-primary">anonymous</small>
+                                            <span><small class="font-weight-bold text-primary">{{$comment->user->user_name}}</small>
                                                 <br>
                                                 <small class="font-weight-bold">{{$comment['content']}}</small></span> </div>
                                         <small>{{

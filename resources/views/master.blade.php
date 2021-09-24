@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProductController;
 
 $total = 0;
-if (Session::has('user')) {
+if (Auth::check()) {
     $total = ProductController::cartItem();
 }
 ?>

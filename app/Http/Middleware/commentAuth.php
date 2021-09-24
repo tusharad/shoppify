@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use App\Models\Order;
 use Closure;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 
 class commentAuth
 {
@@ -18,7 +18,7 @@ class commentAuth
      */
     public function handle(Request $request, Closure $next)
     {
-        $count = Order::where('product_id', $request->product_id)->where('user_id',$request->session()->get('user')['id'])->count();
+        $count = Order::where('product_id', $request->product_id)->where('user_id',Auth::user()['id'])->count();
         return ($count == 0) ? redirect('/')->with('status','Cannot post comment unless you have bought the product!') : $next($request) ; 
     }
 }
